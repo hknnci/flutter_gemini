@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gemini/models/chatbot_service.dart';
 import 'package:flutter_gemini/screens/chatbot_screen.dart';
+import 'package:flutter_gemini/screens/splash_screen.dart'; // Import the splash screen
 import 'package:provider/provider.dart';
 
 void main() {
@@ -20,7 +21,11 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: const ChatScreen(),
+        initialRoute: '/',
+        routes: {
+          '/': (context) => const SplashScreen(),
+          '/chat': (context) => const ChatScreen(),
+        },
       ),
     );
   }
