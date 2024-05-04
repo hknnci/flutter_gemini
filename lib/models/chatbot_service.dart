@@ -4,7 +4,7 @@ import 'package:google_generative_ai/google_generative_ai.dart';
 class ChatbotService extends ChangeNotifier {
   final GenerativeModel _generativeModel = GenerativeModel(
     model: 'gemini-pro',
-    apiKey: 'YOUR-API-KEY',
+    apiKey: 'AIzaSyDl_k4iOXaEB9CqSzCPI0DuW1YSC__azCA',
   );
 
   final List<String> _messages = [];
@@ -20,23 +20,24 @@ class ChatbotService extends ChangeNotifier {
     _sendingMessage = true;
     notifyListeners();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _scrollController.animateTo(
-        _scrollController.position.maxScrollExtent,
-        duration: const Duration(milliseconds: 300),
-        curve: Curves.easeOut,
-      );
-    });
+    _animateScrollController();
 
-    final response = await _generativeModel.generateContent([
-      Content.text(message),
-    ]);
+    try {
+      final response = await _generativeModel.generateContent([
+        Content.text(message),
+      ]);
 
-    _messages.add("Gemini: ${response.text}");
+      _messages.add("Gemini: ${response.text}");
+    } catch (e) {
+      null;
+    } finally {
+      _sendingMessage = false;
+      notifyListeners();
+      _animateScrollController();
+    }
+  }
 
-    _sendingMessage = false;
-    notifyListeners();
-
+  void _animateScrollController() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _scrollController.animateTo(
         _scrollController.position.maxScrollExtent,
