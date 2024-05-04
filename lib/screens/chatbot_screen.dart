@@ -1,3 +1,4 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -139,14 +140,26 @@ class ChatScreen extends StatelessWidget {
                 color: isUser ? Colors.blue : Colors.grey[200],
               ),
               padding: const EdgeInsets.all(12.0),
-              child: Text(
-                message,
-                style: TextStyle(
-                  color: isUser ? Colors.white : Colors.black,
-                ),
-              ),
+              child: isUser
+                  ? Text(
+                      message,
+                      style: TextStyle(
+                        color: isUser ? Colors.white : Colors.black,
+                      ),
+                    )
+                  : AnimatedTextKit(
+                      isRepeatingAnimation: false,
+                      animatedTexts: [
+                        TypewriterAnimatedText(
+                          message,
+                          textStyle: TextStyle(
+                            color: isUser ? Colors.white : Colors.black,
+                          ),
+                        ),
+                      ],
+                    ),
             ),
-          ),
+          )
         ],
       ),
     );
