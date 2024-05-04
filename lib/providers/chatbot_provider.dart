@@ -1,7 +1,9 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
 
-class ChatbotService extends ChangeNotifier {
+class ChatbotProvider extends ChangeNotifier {
   final GenerativeModel _generativeModel = GenerativeModel(
     model: 'gemini-pro',
     apiKey: 'YOUR-API-KEY',
@@ -16,32 +18,32 @@ class ChatbotService extends ChangeNotifier {
   bool get sendingMessage => _sendingMessage;
 
   Future<void> sendMessage(String message) async {
-    _messages.add("You: $message");
-    _sendingMessage = true;
-    notifyListeners();
-
-    _animateScrollController();
-
-    try {
-      final response = await _generativeModel.generateContent([
-        Content.text(message),
-      ]);
-
-      _messages.add("Gemini: ${response.text}");
-    } catch (e) {
-      null;
-    } finally {
-      _sendingMessage = false;
+    if (message.isNotEmpty) {
+      _messages.add("You: $message");
+      _sendingMessage = true;
       notifyListeners();
-      _animateScrollController();
+      animateScrollController();
+
+      try {
+        final response = await _generativeModel.generateContent([
+          Content.text(message),
+        ]);
+        _messages.add("Gemini: ${response.text}");
+      } catch (e) {
+        log('Error: $e');
+      } finally {
+        _sendingMessage = false;
+        notifyListeners();
+        animateScrollController();
+      }
     }
   }
 
-  void _animateScrollController() {
+  void animateScrollController() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _scrollController.animateTo(
         _scrollController.position.maxScrollExtent,
-        duration: const Duration(milliseconds: 300),
+        duration: const Duration(milliseconds: 100),
         curve: Curves.easeOut,
       );
     });

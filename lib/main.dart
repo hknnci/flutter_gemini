@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gemini/models/chatbot_service.dart';
-import 'package:flutter_gemini/screens/chatbot_screen.dart';
+import 'package:flutter_gemini/providers/chatbot_provider.dart';
+import 'package:flutter_gemini/screens/chat_screen.dart';
 import 'package:flutter_gemini/screens/splash_screen.dart';
 import 'package:flutter_gemini/theme.dart';
 import 'package:provider/provider.dart';
@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => ChatbotService(),
+      create: (context) => ChatbotProvider(),
       child: MaterialApp(
         title: 'Gemini Chatbot App',
         debugShowCheckedModeBanner: false,
@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
         initialRoute: '/',
         routes: {
           '/': (context) => const SplashScreen(),
-          '/chat': (context) => const ChatScreen(),
+          '/chat': (context) => ChatScreen(),
         },
       ),
     );
