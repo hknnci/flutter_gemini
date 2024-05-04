@@ -152,8 +152,8 @@ class ChatScreen extends StatelessWidget {
                       animatedTexts: [
                         TypewriterAnimatedText(
                           message,
-                          textStyle: TextStyle(
-                            color: isUser ? Colors.white : Colors.black,
+                          textStyle: const TextStyle(
+                            color: Colors.black,
                           ),
                         ),
                       ],
