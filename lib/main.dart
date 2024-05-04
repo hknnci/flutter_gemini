@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: const AppTheme(TextTheme()).light(),
         darkTheme: const AppTheme(TextTheme()).dark(),
-        themeMode: ThemeMode.system,
+        themeMode: ThemeMode.dark,
         initialRoute: '/',
         routes: {
           '/': (context) => const SplashScreen(),
