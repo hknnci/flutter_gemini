@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gemini/models/chatbot_service.dart';
 import 'package:flutter_gemini/screens/chatbot_screen.dart';
-import 'package:flutter_gemini/screens/splash_screen.dart'; // Import the splash screen
+import 'package:flutter_gemini/screens/splash_screen.dart';
+import 'package:flutter_gemini/theme.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -18,9 +19,9 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Gemini Chatbot App',
         debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
+        theme: const AppTheme(TextTheme()).light(),
+        darkTheme: const AppTheme(TextTheme()).dark(),
+        themeMode: ThemeMode.system,
         initialRoute: '/',
         routes: {
           '/': (context) => const SplashScreen(),

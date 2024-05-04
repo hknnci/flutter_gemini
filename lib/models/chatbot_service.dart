@@ -4,7 +4,7 @@ import 'package:google_generative_ai/google_generative_ai.dart';
 class ChatbotService extends ChangeNotifier {
   final GenerativeModel _generativeModel = GenerativeModel(
     model: 'gemini-pro',
-    apiKey: 'AIzaSyBVA-0JKvLNKfB0gU5_km38hFk5dAbAB0M',
+    apiKey: 'YOUR-API-KEY',
   );
 
   final List<String> _messages = [];
