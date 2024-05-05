@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
         initialRoute: '/',
         routes: {
           '/': (context) => const SplashScreen(),
-          '/chat': (context) => ChatScreen(),
+          '/chat': (context) => const ChatScreen(),
         },
       ),
     );

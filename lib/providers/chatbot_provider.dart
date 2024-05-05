@@ -11,10 +11,12 @@ class ChatbotProvider extends ChangeNotifier {
 
   final List<String> _messages = [];
   final ScrollController _scrollController = ScrollController();
+  final TextEditingController _controller = TextEditingController();
   bool _sendingMessage = false;
 
   List<String> get messages => _messages;
   ScrollController get scrollController => _scrollController;
+  TextEditingController get controller => _controller;
   bool get sendingMessage => _sendingMessage;
 
   Future<void> sendMessage(String message) async {
@@ -28,6 +30,7 @@ class ChatbotProvider extends ChangeNotifier {
         final response = await _generativeModel.generateContent([
           Content.text(message),
         ]);
+        if (!_sendingMessage) return;
         _messages.add("Gemini: ${response.text}");
       } catch (e) {
         log('Error: $e');
@@ -47,5 +50,15 @@ class ChatbotProvider extends ChangeNotifier {
         curve: Curves.easeOut,
       );
     });
+  }
+
+  void cancelSending() {
+    _sendingMessage = false;
+    notifyListeners();
+  }
+
+  void clearController() {
+    _controller.clear();
+    notifyListeners();
   }
 }

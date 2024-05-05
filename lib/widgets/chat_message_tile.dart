@@ -40,6 +40,7 @@ class ChatMessageTile extends StatelessWidget {
                           textStyle: const TextStyle(
                             color: Colors.black,
                           ),
+                          speed: const Duration(milliseconds: 3),
                         ),
                       ],
                     ),
